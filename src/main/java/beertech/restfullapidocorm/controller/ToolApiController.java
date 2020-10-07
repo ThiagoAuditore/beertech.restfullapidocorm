@@ -40,7 +40,7 @@ public class ToolApiController  {
     @ApiOperation(value = "Add a new tool", nickname = "POST", notes = "", tags={ "tool", })
     @ApiResponses(value = {
             @ApiResponse(code = 405, message = "Invalid input") })
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)
