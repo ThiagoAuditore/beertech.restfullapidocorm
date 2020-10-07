@@ -1,5 +1,6 @@
 package beertech.restfullapidocorm.controller;
 
+import beertech.restfullapidocorm.service.ToolService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiOperation;
@@ -32,10 +33,13 @@ public class ToolApiController  {
 
     private final HttpServletRequest request;
 
+    private final ToolService toolService;
+
     @Autowired
-    public ToolApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public ToolApiController(ObjectMapper objectMapper, HttpServletRequest request, ToolService toolService) {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.toolService = toolService;
     }
 
 
@@ -48,7 +52,8 @@ public class ToolApiController  {
             method = RequestMethod.POST)
     public ResponseEntity<Void> addTool(@ApiParam(value = "Tool object that needs to be added" ,required=true )  @RequestBody Tool body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        toolService.saveTool(body);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @ApiOperation(value = "Deletes a tool", nickname = "deleteTool", notes = "", tags={ "tool", })
