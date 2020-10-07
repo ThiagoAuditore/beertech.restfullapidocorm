@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.List;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-07T00:00:49.580Z")
 
@@ -63,9 +64,10 @@ public class ToolApiController  {
     @RequestMapping(value = "/tool/findByToolId",
             produces = { "application/json" },
             method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deleteTool(@NotNull @ApiParam(value = "Tool id to delete", required = true) @RequestParam(value = "toolId", required = true) String toolId) {
+    public ResponseEntity<Void> deleteTool(@NotNull @ApiParam(value = "Tool id to delete", required = true) @RequestParam(value = "toolId", required = true) Long toolId) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        toolService.deleteById(toolId);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @ApiOperation(value = "Finds tools by id", nickname = "findByToolId", notes = "Multiple status values can be provided with comma separated strings", response = Tool.class, responseContainer = "List", tags={ "tool", })
@@ -75,18 +77,17 @@ public class ToolApiController  {
     @RequestMapping(value = "/tool/findByToolId",
             produces = { "application/json" },
             method = RequestMethod.GET)
-    public ResponseEntity<List<Tool>> findByToolId(@NotNull @ApiParam(value = "Status values that need to be considered for filter", required = true)  @RequestParam(value = "toolId", required = true) String toolId) {
+    public ResponseEntity<Tool> findByToolId(@NotNull @ApiParam(value = "Status values that need to be considered for filter", required = true)  @RequestParam(value = "toolId", required = true) Long toolId) {
         String accept = request.getHeader("Accept");
         if (accept != null && accept.contains("application/json")) {
             try {
-                return new ResponseEntity<List<Tool>>(objectMapper.readValue("[ {  \"toolId\" : 0,  \"toolName\" : \"toolName\"}, {  \"toolId\" : 0,  \"toolName\" : \"toolName\"} ]", List.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
+                return new ResponseEntity<Tool>(toolService.getToolById(toolId), HttpStatus.OK);
+            } catch (Exception e) {
                 log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<List<Tool>>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<Tool>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
-
-        return new ResponseEntity<List<Tool>>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<Tool>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ApiOperation(value = "Update an existing tool", nickname = "updateTool", notes = "", tags={ "tool", })
@@ -100,7 +101,8 @@ public class ToolApiController  {
             method = RequestMethod.PUT)
     public ResponseEntity<Void> updateTool(@ApiParam(value = "Tool object that needs to be added" ,required=true )  @RequestBody Tool body) {
         String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+        toolService.updateTool(body);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
 }

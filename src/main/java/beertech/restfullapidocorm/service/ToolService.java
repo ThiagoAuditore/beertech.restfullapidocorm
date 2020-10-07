@@ -14,4 +14,16 @@ public class ToolService {
     public void saveTool(Tool tool){
         toolRepository.save(tool);
     }
+
+    public Tool getToolById(Long id){
+        return toolRepository.getOne(id);
+    }
+
+    public void deleteById(Long id){
+        toolRepository.deleteById(id);
+    }
+
+    public void updateTool(Tool tool){
+        toolRepository.save(tool);
+    }
 }
