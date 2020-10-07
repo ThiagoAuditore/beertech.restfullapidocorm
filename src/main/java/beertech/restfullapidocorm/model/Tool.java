@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
 
@@ -14,27 +15,25 @@ import org.springframework.validation.annotation.Validated;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-07T00:00:49.580Z")
+@JsonSerialize
 @Entity
 public class Tool {
   
   @Id
   @JsonProperty("toolId")
-  private Long toolId = null;
+  private Long toolId ;
 
   @JsonProperty("toolName")
-  private String toolName = null;
+  private String toolName;
 
   public Tool toolId(Long toolId) {
     this.toolId = toolId;
     return this;
   }
-
-  /**
-   * Get toolId
-   * @return toolId
-  **/
-  @ApiModelProperty(value = "")
-
+  public Tool toolName(String toolName) {
+    this.toolName = toolName;
+    return this;
+  }
 
   public Long getToolId() {
     return toolId;
@@ -44,18 +43,6 @@ public class Tool {
     this.toolId = toolId;
   }
 
-  public Tool toolName(String toolName) {
-    this.toolName = toolName;
-    return this;
-  }
-
-  /**
-   * Get toolName
-   * @return toolName
-  **/
-  @ApiModelProperty(value = "")
-
-
   public String getToolName() {
     return toolName;
   }
@@ -64,45 +51,5 @@ public class Tool {
     this.toolName = toolName;
   }
 
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    Tool tool = (Tool) o;
-    return Objects.equals(this.toolId, tool.toolId) &&
-        Objects.equals(this.toolName, tool.toolName);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(toolId, toolName);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class Tool {\n");
-    
-    sb.append("    toolId: ").append(toIndentedString(toolId)).append("\n");
-    sb.append("    toolName: ").append(toIndentedString(toolName)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
 }
 
