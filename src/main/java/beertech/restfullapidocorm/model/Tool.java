@@ -1,6 +1,10 @@
 package beertech.restfullapidocorm.model;
 
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -10,9 +14,10 @@ import org.springframework.validation.annotation.Validated;
  */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-10-07T00:00:49.580Z")
-
-
-public class Tool   {
+@Entity
+public class Tool {
+  
+  @Id
   @JsonProperty("toolId")
   private Long toolId = null;
 
